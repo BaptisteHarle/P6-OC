@@ -5,11 +5,11 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const config = require('./config');
-const tools = require('./tools');
+// const tools = require('./tools');
 
-const indexRouter = require('./routes/index');
-const saucesRoutes = require('./routes/sauces');
-const userRoutes = require('./routes/users');
+const indexRouter = require('./controllers/index');
+const saucesRoutes = require('./routes/saucesRoutes');
+const usersRoutes = require('./routes/usersRoutes');
 
 const app = express();
 
@@ -23,7 +23,7 @@ app.use('/images', express.static(`${__dirname}/images`));
 
 app.use(config.endpoint, indexRouter);
 app.use(config.endpoint, saucesRoutes);
-app.use(config.endpoint, userRoutes);
+app.use(config.endpoint, usersRoutes);
 
 // catch 404 and forward to error handler
 app.use((req, res) => {
