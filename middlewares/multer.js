@@ -14,7 +14,7 @@ const config = require('../config');
  */
  const storage = multer.diskStorage({
   destination(req, file, cb) {
-    cb(null, 'images/');
+    if(cb && typeof cb === 'function') cb(null, 'images/');
   },
   filename(req, file, cb) {
     const id = uuidv4();
@@ -24,7 +24,7 @@ const config = require('../config');
       extension,
       imageUrl: `http://localhost:3000/images/${id}.${extension}`,
     };
-    cb(null, `${id}.${extension}`);
+    if(cb && typeof cb === 'function') cb(null, `${id}.${extension}`);
   },
 });
 /**
@@ -33,7 +33,7 @@ const config = require('../config');
  * conformément aux attentes de la documentation mais indiquant que seules les images
  * sont autorisées.
  */
-const upload = multer({
+const multerMiddleware = multer({
   storage,
   fileFilter(req, file, cb) {
     const { mimetype } = file;
@@ -43,7 +43,5 @@ const upload = multer({
     cb(null, true);
   },
 });
-
-const multerMiddleware = () => upload.single('image');
 
 module.exports = multerMiddleware;

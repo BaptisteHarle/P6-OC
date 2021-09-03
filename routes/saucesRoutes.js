@@ -7,8 +7,8 @@ const sauceCtrl = new SauceController();
 
 router.get('/sauces', auth, sauceCtrl.getAllSauces);
 router.get('/sauces/:id', auth, sauceCtrl.getOneSauce);
-router.post('/sauces', auth, multerMiddleware, sauceCtrl.createSauce);
-router.put('/sauces/:id', auth, multerMiddleware, sauceCtrl.updateSauce);
+router.post('/sauces', auth, multerMiddleware.single('image'), sauceCtrl.createSauce);
+router.put('/sauces/:id', auth, multerMiddleware.single('image'), sauceCtrl.updateSauce);
 router.delete('/sauces/:id', auth, sauceCtrl.deleteSauce);
 router.post('/sauces/:id/like', auth, sauceCtrl.likes);
 

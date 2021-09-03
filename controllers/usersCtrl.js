@@ -18,7 +18,13 @@ class UsersController {
     });
 
     await user.save();
-    res.json({ message: 'utilisateur crée' });
+    res.json({
+      userId: user._id,
+      token: tools.generateAcessToken({
+        userId: user._id,
+        email: user.email,
+      }),
+    });
   } catch (error) {
     res.json(error);
   }
@@ -33,8 +39,8 @@ class UsersController {
       res.json({
         userId: user._id,
         token: tools.generateAcessToken({
-          userId: user._id,
-          email: user.email,
+        userId: user._id,
+        email: user.email,
         }),
       });
       /* On permet a l'utilisateur de récuperer son user_Id via le token */

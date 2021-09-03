@@ -21,6 +21,7 @@ class SaucesController {
   }
 
   async createSauce(req, res, next) {
+    ("trigered")
     if (!req.fileSaved) {
       res.status(500).json({ message: 'Merci de renseigner une image.' });
     } else {
